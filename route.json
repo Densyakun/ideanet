@@ -1,0 +1,29 @@
+{
+    "/signup": {
+        "POST": "signup"
+    },
+    "/signin": {
+        "POST": "signin"
+    },
+    "/signout": {
+        "POST": "signout"
+    },
+    "/user/delete": {
+        "DELETE": "delete_account"
+    },
+    "/user/edit": {
+        "PUT": "user_edit"
+    },
+    "/idea/get": {
+        "GET": "idea_get"
+    },
+    "/idea/post": {
+        "POST": "idea_post"
+    },
+    "/idea/vote": {
+        "PUT": "idea_vote"
+    },
+    "/idea/favorite": {
+        "PUT": "idea_favolite"
+    }
+  }
