@@ -1,11 +1,11 @@
 import { SystemRequest, SystemResponse } from "https://github.com/PuddleServer/Puddle/raw/v1.1.2-beta/mod.ts";
-import { body_to_JSON, compare_password, add_session } from "./common.ts"
+import { bodyToJSON, compare_password, add_session } from "./common.ts"
 
 /**
  * ログイン処理
  */
 export const signin = async (req: SystemRequest, res: SystemResponse) => {
-    const body = body_to_JSON(await req.readBody());
+    const body = bodyToJSON(await req.readBody());
     const user_name: string = body?.user_name || "";
     const password: string = body?.password || "";
 
