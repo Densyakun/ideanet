@@ -10,7 +10,7 @@ import * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
  * @param body requestのbodyデータ
  * @returns 成功時は連想配列、失敗時はnull
  */
-export function body_to_JSON(body: string): {[key:string]: string} | null {
+export function bodyToJSON(body: string): {[key:string]: string} | null {
     try {
         return JSON.parse(body);
     } catch (error) {
@@ -72,4 +72,28 @@ export async function add_session(res: SystemResponse, user_name: string): Promi
         httpOnly: true,
     });
     
+}
+
+/**
+ * session_idでセッションDBからuser_nameを取得する
+ * @param req リクエスト
+ * @returns ユーザー名
+ */
+export async function get_username(req: SystemRequest): Promise<string | undefined> {
+
+    const session_id: string | undefined = req.getCookie("session");
+    if(!session_id) return undefined;
+
+    // session_idでセッションDBからuser_nameを取得する
+    const user_name: string | undefined = "XXXXXXXXXX";
+    return user_name;
+}
+
+/**
+ * セッションがあるかをチェックする
+ * @param req リクエスト
+ * @returns セッションがあればtrue
+ */
+export async function isLoggedIn(req: SystemRequest): Promise<boolean> {
+    return await get_username(req) !== undefined;
 }
