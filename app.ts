@@ -37,8 +37,8 @@ async function setupDatabase(conf: Config) {
         }],
         credential: {
             username:   conf.DB.user,
-            password:   conf.DB.password,
-            db:         conf.DB.host,
+            password: String(conf.DB.password),
+            db:         conf.DB.name,
             mechanism: "SCRAM-SHA-1",
         },
     });
