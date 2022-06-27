@@ -40,6 +40,12 @@ export function check_password(password: string): boolean {
     return password.length >= 14;
 }
 
+/**
+ * ユーザーDBを参照してパスワードの認証を行う
+ * @param user_name ユーザー名
+ * @param password パスワード
+ * @returns パスワードが正しければtrue
+ */
 export async function compare_password(user_name: string, password: string): Promise<boolean> {
 
     // user_nameを用いてユーザーDBからhashed_passwordを取得
