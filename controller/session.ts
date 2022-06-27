@@ -61,7 +61,13 @@ export const signin = async (req: SystemRequest, res: SystemResponse) => {
  * ログアウト処理
  */
 export const signout = async (req: SystemRequest, res: SystemResponse) => {
-    res.setText(`SIGNOUT`);
+    
+    const session_id: string = req.getCookie("session") || "";
+
+    // session_idがセッションデータベースに登録されているかチェックし、あれば削除する
+
+    res.deleteCookie("session");
+    res.redirect("/");
 }
 
 /**
