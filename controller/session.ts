@@ -11,7 +11,7 @@ export const signup = async (req: SystemRequest, res: SystemResponse) => {
     const password: string = body?.password || "";
 
     // user_nameかpasswordに問題がある場合は登録を拒否する。
-    if(!(check_username(user_name) && check_password(password))) {
+    if(!(await check_username(user_name) && check_password(password))) {
         res.setText("Registration failure.", 403);
         return;
     }
@@ -21,17 +21,8 @@ export const signup = async (req: SystemRequest, res: SystemResponse) => {
 
     // user_nameとハッシュ化したパスワードをユーザーDBに登録する。
 
-    // セッションデータベースにセッションを追加する
-
-    // セッション情報をクッキーに設定する
-    /*
-    res.setCookie({
-        name: "session", 
-        value: session_id,
-        secure: false, // Secureサーバーならtrue推奨
-        httpOnly: true,
-    });
-    */
+    // sessionを追加する
+    await add_session(res, user_name);
 
     res.redirect("/");
 }
@@ -40,7 +31,30 @@ export const signup = async (req: SystemRequest, res: SystemResponse) => {
  * ログイン処理
  */
 export const signin = async (req: SystemRequest, res: SystemResponse) => {
-    res.setText(`SIGNIN`);
+    const body = body_to_JSON(await req.readBody());
+    const user_name: string = body?.user_name || "";
+    const password: string = body?.password || "";
+
+    // user_nameかpasswordが入力されていない場合は認証を失敗させる。
+    if(!(user_name.length && password.length)) {
+        res.setText("Authentication failure.", 403);
+        return;
+    }
+
+    // user_nameを用いてユーザーDBからhashed_passwordを取得
+    const hashed_password: string = "";
+
+    const result: boolean = await bcrypt.compare(password, hashed_password);
+
+    if(!result) {
+        res.setText("Authentication failure.", 403);
+        return;
+    }
+
+    // sessionを追加する
+    add_session(res, user_name);
+
+    res.redirect("/");
 }
 
 /**
@@ -68,7 +82,7 @@ function body_to_JSON(body: string): {[key:string]: string} | null {
  * @param user_name 文字列
  * @returns 問題ない場合はtrue
  */
-function check_username(user_name: string): boolean {
+async function check_username(user_name: string): Promise<boolean> {
 
     // user_nameが既にユーザーDBに登録されていないかチェックする。
 
@@ -83,4 +97,24 @@ function check_username(user_name: string): boolean {
 function check_password(password: string): boolean {
 
     return password.length >= 14;
+}
+
+/**
+ * セッションを追加する
+ * @param res レスポンス
+ * @param user_name ユーザーの名前
+ */
+async function add_session(res: SystemResponse, user_name: string): Promise<void> {
+
+    // セッションデータベースにセッションを追加する
+    const session_id = "XXXXXXXXXXXXXXX";
+
+    // セッション情報をクッキーに設定する
+    res.setCookie({
+        name: "session", 
+        value: session_id,
+        secure: false, // Secureサーバーならtrue推奨
+        httpOnly: true,
+    });
+    
 }
