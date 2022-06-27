@@ -1,4 +1,4 @@
-import { SystemRequest, SystemResponse } from "https://github.com/PuddleServer/Puddle/raw/v1.1.2-beta/mod.ts";
+import { System, SystemRequest, SystemResponse } from "https://github.com/PuddleServer/Puddle/raw/v1.1.2-beta/mod.ts";
 import { bodyToJSON, compare_password, add_session } from "./common.ts"
 
 /**
