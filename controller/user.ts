@@ -78,7 +78,7 @@ export const user_edit = async (req: SystemRequest, res: SystemResponse) => {
  * @param new_user_name 新しいユーザー名
  * @returns 変更に成功したらtrue
  */
-async function edit_name(user_name, new_user_name: string): Promise<boolean> {
+async function edit_name(user_name: string, new_user_name: string): Promise<boolean> {
     return true;
 }
 
@@ -88,6 +88,6 @@ async function edit_name(user_name, new_user_name: string): Promise<boolean> {
  * @param new_password 新しいパスワード
  * @returns 変更に成功したらtrue
  */
-async function edit_password(user_name, new_password: string): Promise<boolean> {
+async function edit_password(user_name: string, new_password: string): Promise<boolean> {
     return true;
 }
