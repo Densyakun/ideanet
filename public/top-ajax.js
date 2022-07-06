@@ -1,6 +1,6 @@
 function signupSubmit(data) {
   return $.ajax({
-    url: 'signup',
+    url: '/signup',
     type: 'POST',
     dataType: 'json',
     data: data,
@@ -10,7 +10,7 @@ function signupSubmit(data) {
 
 function signinSubmit(data) {
   return $.ajax({
-    url: 'signin',
+    url: '/signin',
     type: 'POST',
     dataType: 'json',
     data: data,
