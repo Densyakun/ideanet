@@ -61,7 +61,7 @@ signupForm.addEventListener('submit', e => {
   signupFormSubmitSpinner.classList.remove('d-none')
   signupFormFailed.classList.add('d-none')
 
-  signupSubmit($(signupForm).serializeArray())
+  signupSubmit($(signupForm).serializeJSON())
     .done((data, textStatus, jqXHR) => {
       console.log([data, textStatus, jqXHR])
       signupModal.hide()
@@ -93,7 +93,7 @@ signinForm.addEventListener('submit', e => {
   signinFormSubmitSpinner.classList.remove('d-none')
   signinFormFailed.classList.add('d-none')
 
-  signinSubmit($(signinForm).serializeArray())
+  signinSubmit($(signinForm).serializeJSON())
     .done((data, textStatus, jqXHR) => {
       console.log([data, textStatus, jqXHR])
       signinModal.hide()
