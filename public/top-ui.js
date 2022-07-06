@@ -22,12 +22,6 @@ const setOrDeleteModalState = (modalState) => {
   onStateChanged()
 }
 
-addModal = (id, modalName) => {
-  const modalEl = document.getElementById(id)
-  const modal = new bootstrap.Modal(modalEl)
-  addModal(modalEl, modal, modalName)
-}
-
 addModal = (modalEl, modal, modalName) => {
   modals.push([modal, modalName])
 
