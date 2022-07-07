@@ -1,6 +1,6 @@
 import { System, SystemRequest, SystemResponse } from "https://github.com/PuddleServer/Puddle/raw/v1.1.2-beta/mod.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
-import { bodyToJSON, check_username, check_password, compare_password, add_session, get_username } from "./common.ts"
+import { bodyToJSON, check_new_username, check_password, compare_password, add_session, get_username } from "./common.ts"
 
 /**
  * アカウント登録
@@ -12,7 +12,7 @@ import { bodyToJSON, check_username, check_password, compare_password, add_sessi
     const password: string = body?.password || "";
 
     // user_nameかpasswordに問題がある場合は登録を拒否する。
-    if(!(await check_username(user_name) && check_password(password))) {
+    if(!(await check_new_username(user_name) && check_password(password))) {
         res.setText("Registration failure.", 403);
         return;
     }

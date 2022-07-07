@@ -19,11 +19,11 @@ export function bodyToJSON(body: string): {[key:string]: string} | null {
 }
 
 /**
- * user_nameが問題ないかチェックする
+ * user_nameが新しいユーザー名として使用可能かチェックする
  * @param user_name 文字列
  * @returns 問題ない場合はtrue
  */
-export async function check_username(user_name: string): Promise<boolean> {
+ export async function check_new_username(user_name: string): Promise<boolean> {
 
     // user_nameが既にユーザーDBに登録されていないかチェックする。
 

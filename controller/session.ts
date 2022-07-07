@@ -9,14 +9,8 @@ export const signin = async (req: SystemRequest, res: SystemResponse) => {
     const user_name: string = body?.user_name || "";
     const password: string = body?.password || "";
 
-    // user_nameかpasswordが入力されていない場合は認証を失敗させる
-    if(!(user_name.length && password.length)) {
-        res.setText("Authentication failure.", 403);
-        return;
-    }
-
-    // パスワードが正しいかどうかをチェックする
-    const result: boolean = compare_password(user_name, password);
+    // ユーザー名とパスワードが正しいかどうかをチェックする
+    const result: boolean = user_name.length && password.length && compare_password(user_name, password);
 
     if(!result) {
         res.setText("Authentication failure.", 403);
