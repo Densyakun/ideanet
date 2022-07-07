@@ -19,15 +19,25 @@ export function bodyToJSON(body: string): {[key:string]: string} | null {
 }
 
 /**
+ * user_nameがユーザー名として正しい形式かチェックする
+ * @param user_name 文字列
+ * @returns 問題ない場合はtrue
+ */
+ export function check_username(user_name: string): boolean {
+
+    return 6 <= user_name.length && user_name.length <= 30;
+}
+
+/**
  * user_nameが新しいユーザー名として使用可能かチェックする
  * @param user_name 文字列
  * @returns 問題ない場合はtrue
  */
- export async function check_new_username(user_name: string): Promise<boolean> {
+export async function check_new_username(user_name: string): Promise<boolean> {
 
     // user_nameが既にユーザーDBに登録されていないかチェックする。
 
-    return user_name.length > 0;
+    return true;
 }
 
 /**
@@ -37,7 +47,7 @@ export function bodyToJSON(body: string): {[key:string]: string} | null {
  */
 export function check_password(password: string): boolean {
 
-    return password.length >= 14;
+    return 14 <= password.length && password.length <= 100;
 }
 
 /**

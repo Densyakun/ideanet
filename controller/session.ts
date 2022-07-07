@@ -20,7 +20,9 @@ export const signin = async (req: SystemRequest, res: SystemResponse) => {
     // sessionを追加する
     add_session(res, user_name);
 
-    res.redirect("/");
+    // データを返す
+    res.setText("{}");
+    res.setType("application/json");
 }
 
 /**
@@ -33,5 +35,7 @@ export const signout = async (req: SystemRequest, res: SystemResponse) => {
     // session_idがセッションデータベースに登録されているかチェックし、あれば削除する
 
     res.deleteCookie("session");
-    res.redirect("/");
+
+    res.setText("{}");
+    res.setType("application/json");
 }

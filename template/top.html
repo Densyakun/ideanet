@@ -72,10 +72,13 @@
                             <input type="password" class="form-control" id="signupFormControlInput1" name="password"
                                 required minlength="14" maxlength="100"
                                 pattern="[\x20-\x2F\w\x3A-\x40[\\\]^`{|}~]{14,100}">
-                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードが不正です。</div>
+                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードの形式が間違っています。
+                            </div>
                         </div>
-                        <div id="signupFormFailed" class="form-text text-danger d-none">
-                            ユーザー登録できませんでした。インターネット接続を確認し、再度お試しください。</div>
+                        <div id="signupFormError" class="form-text text-danger d-none">エラーが発生しました。エラーメッセージ: <span
+                                id="signupFormErrorMsg"></span></div>
+                        <div id="signupFormTimeout" class="form-text text-danger d-none">
+                            サーバーとの接続がタイムアウトしました。インターネット接続を確認し、再度お試しください。</div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" id="signupFormSubmitButton">
@@ -111,10 +114,14 @@
                             <input type="password" class="form-control" id="signinFormControlInput1" name="password"
                                 required minlength="14" maxlength="100"
                                 pattern="[\x20-\x2F\w\x3A-\x40[\\\]^`{|}~]{14,100}">
-                            <div id="signinFormPasswordInvalid" class="form-text text-danger d-none">パスワードが不正です。</div>
+                            <div id="signinFormPasswordInvalid" class="form-text text-danger d-none">パスワードの形式が間違っています。
+                            </div>
                         </div>
-                        <div id="signinFormFailed" class="form-text text-danger d-none">
-                            サインインできませんでした。ユーザー名またはパスワードが間違っている可能性があります。</div>
+                        <div id="signinFormError" class="form-text text-danger d-none">エラーが発生しました。エラーメッセージ: <span
+                                id="signinFormErrorMsg"></span></div>
+                        <div id="signinFormTimeout" class="form-text text-danger d-none">
+                            サーバーとの接続がタイムアウトしました。インターネット接続を確認し、再度お試しください。</div>
+                        <div id="signinFormFailed" class="form-text text-danger d-none">ユーザー名またはパスワードが間違っています。</div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" id="signinFormSubmitButton">

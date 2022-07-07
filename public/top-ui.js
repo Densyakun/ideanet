@@ -46,14 +46,23 @@ addModal(signupModalEl, signupModal, 'signup')
 const signupForm = document.getElementById('signupForm')
 const signupFormSubmitButton = document.getElementById('signupFormSubmitButton')
 const signupFormSubmitSpinner = document.getElementById('signupFormSubmitSpinner')
-const signupFormFailed = document.getElementById('signupFormFailed')
+const signupFormError = document.getElementById('signupFormError')
+const signupFormErrorMsg = document.getElementById('signupFormErrorMsg')
+const signupFormTimeout = document.getElementById('signupFormTimeout')
+const signupFormUsernameInvalid = document.getElementById('signupFormUsernameInvalid')
+const signupFormUsernameExists = document.getElementById('signupFormUsernameExists')
+const signupFormPasswordInvalid = document.getElementById('signupFormPasswordInvalid')
 
 signupForm.addEventListener('submit', e => {
   e.preventDefault()
 
   signupFormSubmitButton.setAttribute('disabled', true)
   signupFormSubmitSpinner.classList.remove('d-none')
-  signupFormFailed.classList.add('d-none')
+  signupFormError.classList.add('d-none')
+  signupFormTimeout.classList.add('d-none')
+  signupFormUsernameInvalid.classList.add('d-none')
+  signupFormUsernameExists.classList.add('d-none')
+  signupFormPasswordInvalid.classList.add('d-none')
 
   signupSubmit($(signupForm).serializeJSON())
     .done((data, textStatus, jqXHR) => {
@@ -63,7 +72,19 @@ signupForm.addEventListener('submit', e => {
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log([jqXHR, textStatus, errorThrown])
-      signupFormFailed.classList.remove('d-none')
+      if (textStatus === "error") {
+        if (jqXHR.responseText === "Username already exists.")
+          signupFormUsernameExists.classList.remove('d-none')
+        else if (jqXHR.responseText === "Invalid password.")
+          signupFormPasswordInvalid.classList.remove('d-none')
+        else if (jqXHR.responseText === "Invalid username.")
+          signupFormUsernameInvalid.classList.remove('d-none')
+        else {
+          signupFormErrorMsg.textContent = errorThrown
+          signupFormError.classList.remove('d-none')
+        }
+      } else if (textStatus === "timeout")
+        signupFormTimeout.classList.remove('d-none')
     })
     .always((dataOrJqXHR, textStatus, jqXHROrErrorThrown) => {
       signupFormSubmitButton.removeAttribute('disabled')
@@ -78,6 +99,9 @@ addModal(signinModalEl, signinModal, 'signin')
 const signinForm = document.getElementById('signinForm')
 const signinFormSubmitButton = document.getElementById('signinFormSubmitButton')
 const signinFormSubmitSpinner = document.getElementById('signinFormSubmitSpinner')
+const signinFormError = document.getElementById('signinFormError')
+const signinFormErrorMsg = document.getElementById('signinFormErrorMsg')
+const signinFormTimeout = document.getElementById('signinFormTimeout')
 const signinFormFailed = document.getElementById('signinFormFailed')
 
 signinForm.addEventListener('submit', e => {
@@ -85,6 +109,8 @@ signinForm.addEventListener('submit', e => {
 
   signinFormSubmitButton.setAttribute('disabled', true)
   signinFormSubmitSpinner.classList.remove('d-none')
+  signinFormError.classList.add('d-none')
+  signinFormTimeout.classList.add('d-none')
   signinFormFailed.classList.add('d-none')
 
   signinSubmit($(signinForm).serializeJSON())
@@ -95,7 +121,15 @@ signinForm.addEventListener('submit', e => {
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log([jqXHR, textStatus, errorThrown])
-      signinFormFailed.classList.remove('d-none')
+      if (textStatus === "error") {
+        if (jqXHR.responseText === "Authentication failure.")
+          signinFormFailed.classList.remove('d-none')
+        else {
+          signinFormErrorMsg.textContent = errorThrown
+          signinFormError.classList.remove('d-none')
+        }
+      } else if (textStatus === "timeout")
+        signinFormTimeout.classList.remove('d-none')
     })
     .always((dataOrJqXHR, textStatus, jqXHROrErrorThrown) => {
       signinFormSubmitButton.removeAttribute('disabled')
