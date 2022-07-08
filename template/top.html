@@ -59,18 +59,27 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="signupFormControlInput1" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="signupFormControlInput1" name="user_name">
-                            <div id="signupFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名は 6 文字以上、 30 文字以下で入力してください。
+                            <label for="signupFormUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="signupFormUsername" name="user_name">
+                            <div id="signupFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名は 6 文字以上、 30
+                                文字以下で入力してください。
                             </div>
                             <div id="signupFormUsernameExists" class="form-text text-danger d-none">It can't be a
                                 name that already exists.</div>
                         </div>
                         <div class="mb-3">
-                            <label for="signupFormControlTextarea1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signupFormControlInput1" name="password">
-                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードは 14 文字以上、 100 文字以下で入力してください。
+                            <label for="signupFormPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signupFormPassword" name="password">
+                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードは 14 文字以上、 100
+                                文字以下で入力してください。
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupFormPasswordConfirm" class="form-label">Password confirm</label>
+                            <input type="password" class="form-control" id="signupFormPasswordConfirm"
+                                name="password_confirm">
+                            <div id="signupFormPasswordDidnotMatch" class="form-text text-danger d-none">
+                                確認用パスワードがパスワードと一致しません。</div>
                         </div>
                         <div id="signupFormError" class="form-text text-danger d-none">エラーが発生しました。エラーメッセージ: <span
                                 id="signupFormErrorMsg"></span></div>
@@ -100,14 +109,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="signinFormControlInput1" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="signinFormControlInput1" name="user_name">
+                            <label for="signinFormUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="signinFormUsername" name="user_name">
                             <div id="signinFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名の形式が間違っています。
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="signinFormControlTextarea1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signinFormControlInput1" name="password">
+                            <label for="signinFormPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signinFormPassword" name="password">
                             <div id="signinFormPasswordInvalid" class="form-text text-danger d-none">パスワードの形式が間違っています。
                             </div>
                         </div>

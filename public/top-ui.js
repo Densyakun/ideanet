@@ -52,6 +52,7 @@ const signupFormTimeout = document.getElementById('signupFormTimeout')
 const signupFormUsernameInvalid = document.getElementById('signupFormUsernameInvalid')
 const signupFormUsernameExists = document.getElementById('signupFormUsernameExists')
 const signupFormPasswordInvalid = document.getElementById('signupFormPasswordInvalid')
+const signupFormPasswordDidnotMatch = document.getElementById('signupFormPasswordDidnotMatch')
 
 signupForm.addEventListener('submit', e => {
   e.preventDefault()
@@ -61,6 +62,7 @@ signupForm.addEventListener('submit', e => {
   signupFormUsernameInvalid.classList.add('d-none')
   signupFormUsernameExists.classList.add('d-none')
   signupFormPasswordInvalid.classList.add('d-none')
+  signupFormPasswordDidnotMatch.classList.add('d-none')
 
   const data = $(signupForm).serializeObject()
   let b = false
@@ -72,13 +74,20 @@ signupForm.addEventListener('submit', e => {
     signupFormPasswordInvalid.classList.remove('d-none')
     b = true
   }
+  if (data["password"] !== data["password_confirm"]) {
+    signupFormPasswordDidnotMatch.classList.remove('d-none')
+    b = true
+  }
   if (b)
     return
 
   signupFormSubmitButton.setAttribute('disabled', true)
   signupFormSubmitSpinner.classList.remove('d-none')
 
-  signupSubmit(JSON.stringify(data))
+  signupSubmit(JSON.stringify({
+    "user_name": data["user_name"],
+    "password": data["password"]
+  }))
     .done((data, textStatus, jqXHR) => {
       console.log([data, textStatus, jqXHR])
       signupModal.hide()
