@@ -56,15 +56,29 @@ const signupFormPasswordInvalid = document.getElementById('signupFormPasswordInv
 signupForm.addEventListener('submit', e => {
   e.preventDefault()
 
-  signupFormSubmitButton.setAttribute('disabled', true)
-  signupFormSubmitSpinner.classList.remove('d-none')
   signupFormError.classList.add('d-none')
   signupFormTimeout.classList.add('d-none')
   signupFormUsernameInvalid.classList.add('d-none')
   signupFormUsernameExists.classList.add('d-none')
   signupFormPasswordInvalid.classList.add('d-none')
 
-  signupSubmit($(signupForm).serializeJSON())
+  const data = $(signupForm).serializeObject()
+  let b = false
+  if (!check_username(data["user_name"])) {
+    signupFormUsernameInvalid.classList.remove('d-none')
+    b = true
+  }
+  if (!check_password(data["password"])) {
+    signupFormPasswordInvalid.classList.remove('d-none')
+    b = true
+  }
+  if (b)
+    return
+
+  signupFormSubmitButton.setAttribute('disabled', true)
+  signupFormSubmitSpinner.classList.remove('d-none')
+
+  signupSubmit(JSON.stringify(data))
     .done((data, textStatus, jqXHR) => {
       console.log([data, textStatus, jqXHR])
       signupModal.hide()
@@ -102,18 +116,36 @@ const signinFormSubmitSpinner = document.getElementById('signinFormSubmitSpinner
 const signinFormError = document.getElementById('signinFormError')
 const signinFormErrorMsg = document.getElementById('signinFormErrorMsg')
 const signinFormTimeout = document.getElementById('signinFormTimeout')
+const signinFormUsernameInvalid = document.getElementById('signinFormUsernameInvalid')
+const signinFormPasswordInvalid = document.getElementById('signinFormPasswordInvalid')
 const signinFormFailed = document.getElementById('signinFormFailed')
 
 signinForm.addEventListener('submit', e => {
   e.preventDefault()
 
-  signinFormSubmitButton.setAttribute('disabled', true)
-  signinFormSubmitSpinner.classList.remove('d-none')
   signinFormError.classList.add('d-none')
   signinFormTimeout.classList.add('d-none')
+  signinFormUsernameInvalid.classList.add('d-none')
+  signinFormPasswordInvalid.classList.add('d-none')
   signinFormFailed.classList.add('d-none')
 
-  signinSubmit($(signinForm).serializeJSON())
+  const data = $(signinForm).serializeObject()
+  let b = false
+  if (!check_username(data["user_name"])) {
+    signinFormUsernameInvalid.classList.remove('d-none')
+    b = true
+  }
+  if (!check_password(data["password"])) {
+    signinFormPasswordInvalid.classList.remove('d-none')
+    b = true
+  }
+  if (b)
+    return
+
+  signinFormSubmitButton.setAttribute('disabled', true)
+  signinFormSubmitSpinner.classList.remove('d-none')
+
+  signinSubmit(JSON.stringify(data))
     .done((data, textStatus, jqXHR) => {
       console.log([data, textStatus, jqXHR])
       signinModal.hide()

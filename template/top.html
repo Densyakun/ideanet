@@ -60,19 +60,16 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="signupFormControlInput1" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="signupFormControlInput1" name="user_name"
-                                required minlength="6" maxlength="30">
-                            <div id="signupFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名の形式が間違っています。
+                            <input type="text" class="form-control" id="signupFormControlInput1" name="user_name">
+                            <div id="signupFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名は 6 文字以上、 30 文字以下で入力してください。
                             </div>
                             <div id="signupFormUsernameExists" class="form-text text-danger d-none">It can't be a
                                 name that already exists.</div>
                         </div>
                         <div class="mb-3">
                             <label for="signupFormControlTextarea1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signupFormControlInput1" name="password"
-                                required minlength="14" maxlength="100"
-                                pattern="[\x20-\x2F\w\x3A-\x40[\\\]^`{|}~]{14,100}">
-                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードの形式が間違っています。
+                            <input type="password" class="form-control" id="signupFormControlInput1" name="password">
+                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードは 14 文字以上、 100 文字以下で入力してください。
                             </div>
                         </div>
                         <div id="signupFormError" class="form-text text-danger d-none">エラーが発生しました。エラーメッセージ: <span
@@ -104,16 +101,13 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="signinFormControlInput1" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="signinFormControlInput1" name="user_name"
-                                required minlength="6" maxlength="30">
+                            <input type="text" class="form-control" id="signinFormControlInput1" name="user_name">
                             <div id="signinFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名の形式が間違っています。
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="signinFormControlTextarea1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signinFormControlInput1" name="password"
-                                required minlength="14" maxlength="100"
-                                pattern="[\x20-\x2F\w\x3A-\x40[\\\]^`{|}~]{14,100}">
+                            <input type="password" class="form-control" id="signinFormControlInput1" name="password">
                             <div id="signinFormPasswordInvalid" class="form-text text-danger d-none">パスワードの形式が間違っています。
                             </div>
                         </div>
@@ -140,6 +134,7 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/public/jquery.serialize-object.min.js"></script>
+    <script src="/public/common.js"></script>
     <script src="/public/top-ui.js"></script>
     <script src="/public/top-ajax.js"></script>
 </body>
