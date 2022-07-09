@@ -47,7 +47,9 @@ export async function check_new_username(user_name: string): Promise<boolean> {
  */
 export function check_password(password: string): boolean {
 
-    return 14 <= password.length && password.length <= 100;
+    return 14 <= password.length
+        && password.length <= 100
+        && /^[\x20-\x7E]{14,100}$/.test(password);
 }
 
 /**

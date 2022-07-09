@@ -62,17 +62,16 @@
                             <label for="signupFormUsername" class="form-label">Username</label>
                             <input type="text" class="form-control" id="signupFormUsername" name="user_name">
                             <div id="signupFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名は 6 文字以上、 30
-                                文字以下で入力してください。
-                            </div>
+                                文字以下で入力してください。</div>
                             <div id="signupFormUsernameExists" class="form-text text-danger d-none">It can't be a
                                 name that already exists.</div>
                         </div>
                         <div class="mb-3">
                             <label for="signupFormPassword" class="form-label">Password</label>
                             <input type="password" class="form-control" id="signupFormPassword" name="password">
-                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">パスワードは 14 文字以上、 100
-                                文字以下で入力してください。
-                            </div>
+                            <div id="signupFormPasswordInvalid" class="form-text text-danger d-none">
+                                パスワードは半角英字、数字、半角スペース、記号 !\&quot;#$%&amp;&#039;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~ のみを使用し、
+                                14 文字以上、 100 文字以下で入力してください。</div>
                         </div>
                         <div class="mb-3">
                             <label for="signupFormPasswordConfirm" class="form-label">Password confirm</label>
@@ -111,14 +110,15 @@
                         <div class="mb-3">
                             <label for="signinFormUsername" class="form-label">Username</label>
                             <input type="text" class="form-control" id="signinFormUsername" name="user_name">
-                            <div id="signinFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名の形式が間違っています。
-                            </div>
+                            <div id="signinFormUsernameInvalid" class="form-text text-danger d-none">ユーザー名は 6 文字以上、 30
+                                文字以下で入力してください。</div>
                         </div>
                         <div class="mb-3">
                             <label for="signinFormPassword" class="form-label">Password</label>
                             <input type="password" class="form-control" id="signinFormPassword" name="password">
-                            <div id="signinFormPasswordInvalid" class="form-text text-danger d-none">パスワードの形式が間違っています。
-                            </div>
+                            <div id="signinFormPasswordInvalid" class="form-text text-danger d-none">
+                                パスワードは半角英字、数字、半角スペース、記号 !\&quot;#$%&amp;&#039;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~ のみを使用し、
+                                14 文字以上、 100 文字以下で入力してください。</div>
                         </div>
                         <div id="signinFormError" class="form-text text-danger d-none">エラーが発生しました。エラーメッセージ: <span
                                 id="signinFormErrorMsg"></span></div>
