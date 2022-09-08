@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Button, Container, Navbar } from 'react-bootstrap'
+import { Button, Card, Container, FloatingLabel, Form, Navbar, Stack } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
 import ScrollShadows from '../components/ScrollShadows'
 
 const Home: NextPage = () => {
@@ -15,29 +16,72 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="position-absolute w-100 h-100 d-flex flex-column mb-3 bg-dark text-light">
+      <div className="position-absolute w-100 h-100 d-flex flex-column mb-3 bg-dark1 text-light">
         <Navbar bg="dark" variant="dark">
           <Container fluid>
             <Navbar.Brand>Ideanet</Navbar.Brand>
             <Navbar.Collapse id="basic-navbar-nav">
-              <button type="button" className="ms-auto btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#signinModal">Sign in</button>
-              <button type="button" className="ms-2 btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</button>
             </Navbar.Collapse>
           </Container>
         </Navbar>
 
         <ScrollShadows>
-          <main className="container-xxl py-3">
-            <div className="border border-secondary rounded p-3 d-flex flex-column"
-              style={{ height: '12rem' }}>
-              <div className='flex-grow-1 overflow-hidden mb-3'>
-                あああ入力欄
-              </div>
+          <main className="container-sm py-3">
+            <p>IdeaNetは、社会活動の効率化のために、誰でも匿名で情報を共有できる、スレッド形式の電子掲示板です。</p>
 
-              <div className='md-3'>
-                <Button variant="primary">Go somewhere</Button>
-              </div>
-            </div>
+            <p>まずは、あなたの目標を投稿してみましょう。</p>
+
+            <h5>投稿する</h5>
+
+            <Card bg="dark" text="white" className="mb-2">
+              <Card.Body>
+                <Form>
+                  <fieldset>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <FloatingLabel controlId="floatingTextarea2" label="テキスト" className="text-body">
+                        <Form.Control
+                          as="textarea"
+                          placeholder="Leave a comment here"
+                          rows={3}
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                      <i className="bi bi-plus"></i>
+                      投稿する
+                    </Button>
+                  </fieldset>
+                </Form>
+              </Card.Body>
+            </Card>
+
+            <h5>みんなの投稿</h5>
+
+            <Stack gap={2}>
+              <Card bg="dark" text="white">
+                <Card.Body>
+                  <Card.Text>
+                    目標を達成する
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+
+              <Card bg="dark" text="white">
+                <Card.Body>
+                  <Card.Text>
+                    社会活動の効率化
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+
+              <Card bg="dark" text="white">
+                <Card.Body>
+                  <Card.Text>
+                    （手段）リソース（経営資源）を共有するWebアプリの開発
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Stack>
           </main>
         </ScrollShadows>
       </div>
