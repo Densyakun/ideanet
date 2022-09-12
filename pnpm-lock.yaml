@@ -12,6 +12,7 @@ specifiers:
   react: 18.2.0
   react-bootstrap: ^2.5.0
   react-dom: 18.2.0
+  react-hook-form: ^7.35.0
   typescript: 4.8.2
 
 dependencies:
@@ -21,6 +22,7 @@ dependencies:
   react: 18.2.0
   react-bootstrap: 2.5.0_63dfw6rfgd64rl77ptfma4cvt4
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.35.0_react@18.2.0
 
 devDependencies:
   '@types/node': 18.7.14
@@ -1691,6 +1693,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hook-form/7.35.0_react@18.2.0:
+    resolution: {integrity: sha512-9CYdOed+Itbiu5VMVxW0PK9mBR3f0gDGJcZEyUSm0eJbDymQ913TRs2gHcQZZmfTC+rtxyDFRuelMxx/+xwMcw==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:

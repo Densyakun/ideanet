@@ -1,11 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Button, Card, Container, FloatingLabel, Form, Navbar, Stack } from 'react-bootstrap'
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Button, Card, Container, Form, Navbar, Stack } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import ScrollShadows from '../components/ScrollShadows'
 
+type Inputs = {
+  text: string
+}
+
 const Home: NextPage = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+  const onSubmit = handleSubmit(data => console.log(data))
+
   return (
     <>
       <Head>
@@ -35,16 +44,19 @@ const Home: NextPage = () => {
 
             <Card bg="dark" text="white" className="mb-2">
               <Card.Body>
-                <Form>
+                <Form onSubmit={onSubmit}>
                   <fieldset>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <FloatingLabel controlId="floatingTextarea2" label="テキスト" className="text-body">
-                        <Form.Control
-                          as="textarea"
-                          placeholder="Leave a comment here"
-                          rows={3}
-                        />
-                      </FloatingLabel>
+                      <Form.Control
+                        as="textarea"
+                        placeholder="ここにアイデアを書く"
+                        isInvalid={!!errors.text}
+                        rows={2}
+                        {...register("text", { required: true, maxLength: 255 })}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.text?.type === 'maxLength' && "テキストは 255 文字以下で入力してください。"}
+                      </Form.Control.Feedback>
                     </Form.Group>
                     <Button variant="primary" type="submit">
                       <i className="bi bi-plus"></i>
