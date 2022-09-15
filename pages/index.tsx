@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -7,11 +7,53 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import ScrollShadows from '../components/ScrollShadows'
 
+type IndexPageData = {
+  posts: {
+    _id: string,
+    text: string
+  }[]
+}
+
 type Inputs = {
   text: string
 }
 
-const Home: NextPage = () => {
+export const getServerSideProps = async () => {
+  const data: IndexPageData = {
+    posts: [
+      {
+        _id: "0",
+        text: "目標を達成する"
+      },
+      {
+        _id: "1",
+        text: "社会活動の効率化"
+      },
+      {
+        _id: "2",
+        text: "（手段）リソース（経営資源）を共有するWebアプリの開発"
+      }
+    ]
+  }
+
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
+export default function Page({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const postCards = data.posts.map((post) =>
+    <Card key={post._id} bg="dark" text="white">
+      <Card.Body>
+        <Card.Text>
+          {post.text}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  )
+
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const onSubmit = handleSubmit(data => console.log(data))
 
@@ -70,29 +112,7 @@ const Home: NextPage = () => {
             <h5>みんなの投稿</h5>
 
             <Stack gap={2}>
-              <Card bg="dark" text="white">
-                <Card.Body>
-                  <Card.Text>
-                    目標を達成する
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-
-              <Card bg="dark" text="white">
-                <Card.Body>
-                  <Card.Text>
-                    社会活動の効率化
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-
-              <Card bg="dark" text="white">
-                <Card.Body>
-                  <Card.Text>
-                    （手段）リソース（経営資源）を共有するWebアプリの開発
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              {postCards}
             </Stack>
           </main>
         </ScrollShadows>
@@ -100,5 +120,3 @@ const Home: NextPage = () => {
     </>
   )
 }
-
-export default Home
