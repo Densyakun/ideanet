@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Alert, Button, Card, Container, Form, Navbar, Stack } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
-import ScrollShadows from '../components/ScrollShadows'
 import clientPromise from '../lib/mongodb'
 
 type PostListData = {
@@ -77,64 +76,60 @@ export default function Page({ posts, isConnected }: InferGetServerSidePropsType
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="position-absolute w-100 h-100 d-flex flex-column mb-3 bg-dark1 text-light">
-        <Navbar bg="dark" variant="dark">
-          <Container fluid>
-            <Navbar.Brand>Ideanet</Navbar.Brand>
-            <Navbar.Collapse id="basic-navbar-nav">
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+      <Navbar bg="dark" variant="dark">
+        <Container fluid>
+          <Navbar.Brand>Ideanet</Navbar.Brand>
+          <Navbar.Collapse id="basic-navbar-nav">
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
 
-        <ScrollShadows>
-          <main className="container-sm py-3">
-            {isConnected ? (
-              <>
-                <p>IdeaNetは、社会活動の効率化のために、誰でも匿名で情報を共有できる、スレッド形式の電子掲示板です。</p>
+      <div className="container-sm py-3">
+        {isConnected ? (
+          <>
+            <p>IdeaNetは、社会活動の効率化のために、誰でも匿名で情報を共有できる、スレッド形式の電子掲示板です。</p>
 
-                <p>まずは、あなたの目標を投稿してみましょう。</p>
+            <p>まずは、あなたのやりたいこと（目標）を投稿してみましょう。</p>
 
-                <h5>投稿する</h5>
+            <h5>投稿する</h5>
 
-                <Card bg="dark" text="white" className="mb-2">
-                  <Card.Body>
-                    <Form onSubmit={onSubmit}>
-                      <fieldset>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                          <Form.Control
-                            as="textarea"
-                            placeholder="ここにアイデアを書く"
-                            isInvalid={!!errors.text}
-                            rows={2}
-                            {...register("text", { required: true, maxLength: 255 })}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.text?.type === 'maxLength' && "テキストは 255 文字以下で入力してください。"}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                          <i className="bi bi-plus"></i>
-                          投稿する
-                        </Button>
-                      </fieldset>
-                    </Form>
-                  </Card.Body>
-                </Card>
+            <Card bg="dark" text="white" className="mb-2">
+              <Card.Body>
+                <Form onSubmit={onSubmit}>
+                  <fieldset>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Control
+                        as="textarea"
+                        placeholder="ここにアイデアを書く"
+                        isInvalid={!!errors.text}
+                        rows={2}
+                        {...register("text", { required: true, maxLength: 255 })}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.text?.type === 'maxLength' && "テキストは 255 文字以下で入力してください。"}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                      <i className="bi bi-plus"></i>
+                      投稿する
+                    </Button>
+                  </fieldset>
+                </Form>
+              </Card.Body>
+            </Card>
 
-                <h5>みんなの投稿</h5>
+            <h5>みんなの投稿</h5>
 
-                <Stack gap={2}>
-                  {postCards}
-                </Stack>
-              </>
-            ) : (
-              <Alert variant="danger" className="mb-0">
-                You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
-                for instructions.
-              </Alert>
-            )}
-          </main>
-        </ScrollShadows>
+            <Stack gap={2}>
+              {postCards}
+            </Stack>
+          </>
+        ) : (
+          <Alert variant="danger" className="mb-0">
+            Server is NOT connected to MongoDB. Check the <code>README.md</code>{' '}
+            for instructions.
+          </Alert>
+        )}
       </div>
     </>
   )
