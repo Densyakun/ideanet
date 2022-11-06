@@ -2,15 +2,11 @@ import type { InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import React from "react";
 import { useForm } from "react-hook-form";
+import { PostList, PostListData } from '../components/post/PostList'
 import { Alert, Button, Card, Container, Form, Navbar, Stack } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import clientPromise from '../lib/mongodb'
-
-type PostListData = {
-  _id: string,
-  text: string
-}[]
 
 type Inputs = {
   text: string
@@ -53,16 +49,6 @@ export const getServerSideProps = async () => {
 }
 
 export default function Page({ posts, isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const postCards = posts.map((post) =>
-    <Card key={post._id} bg="dark" text="white">
-      <Card.Body>
-        <Card.Text>
-          {post.text}
-        </Card.Text>
-      </Card.Body>
-    </Card>
-  )
-
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const onSubmit = handleSubmit(data => console.log(data))
 
@@ -118,11 +104,7 @@ export default function Page({ posts, isConnected }: InferGetServerSidePropsType
               </Card.Body>
             </Card>
 
-            <h5>みんなの投稿</h5>
-
-            <Stack gap={2}>
-              {postCards}
-            </Stack>
+            <PostList posts={posts} />
           </>
         ) : (
           <Alert variant="danger" className="mb-0">
