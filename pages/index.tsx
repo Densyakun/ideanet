@@ -1,16 +1,11 @@
 import type { InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
-import React from "react";
-import { useForm } from "react-hook-form";
+import Post from '../components/post/Post'
 import { PostList, PostListData } from '../components/post/PostList'
-import { Alert, Button, Card, Container, Form, Navbar, Stack } from 'react-bootstrap'
+import { Alert, Container, Navbar } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import clientPromise from '../lib/mongodb'
-
-type Inputs = {
-  text: string
-}
 
 export const getServerSideProps = async () => {
   const allPosts: PostListData = [
@@ -49,9 +44,6 @@ export const getServerSideProps = async () => {
 }
 
 export default function Page({ posts, isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
-  const onSubmit = handleSubmit(data => console.log(data))
-
   return (
     <>
       <Head>
@@ -77,32 +69,9 @@ export default function Page({ posts, isConnected }: InferGetServerSidePropsType
 
             <p>まずは、あなたのやりたいこと（目標）を投稿してみましょう。</p>
 
-            <h5>投稿する</h5>
-
-            <Card bg="dark" text="white" className="mb-2">
-              <Card.Body>
-                <Form onSubmit={onSubmit}>
-                  <fieldset>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control
-                        as="textarea"
-                        placeholder="ここにアイデアを書く"
-                        isInvalid={!!errors.text}
-                        rows={2}
-                        {...register("text", { required: true, maxLength: 255 })}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {errors.text?.type === 'maxLength' && "テキストは 255 文字以下で入力してください。"}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                      <i className="bi bi-plus"></i>
-                      投稿する
-                    </Button>
-                  </fieldset>
-                </Form>
-              </Card.Body>
-            </Card>
+            <div className="mb-2">
+              <Post />
+            </div>
 
             <PostList posts={posts} />
           </>
