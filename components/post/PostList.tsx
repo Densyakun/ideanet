@@ -1,5 +1,6 @@
-import React from 'react'
-import { Card, Stack } from 'react-bootstrap'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { PostItem, Post } from './Post'
 
 export type PostListData = {
   _id: string,
@@ -8,22 +9,24 @@ export type PostListData = {
 
 export const PostList = ({ posts }: { posts: PostListData }) => {
   const postCards = posts.map((post) =>
-    <Card key={post._id} bg="dark" text="white">
-      <Card.Body>
-        <Card.Text>
-          {post.text}
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <PostItem key={post._id}>
+      {post.text}
+    </PostItem>
   )
 
   return (
     <>
-      <h5>みんなの投稿</h5>
+      <Typography variant="h5" component="div">
+        みんなの投稿
+      </Typography>
 
-      <Stack gap={2}>
-        {postCards}
-      </Stack>
+      {posts && (
+        <Stack spacing={1}>
+          <Post />
+
+          {postCards}
+        </Stack>
+      )}
     </>
   )
 }

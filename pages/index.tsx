@@ -1,11 +1,27 @@
 import type { InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
-import Post from '../components/post/Post'
 import { PostList, PostListData } from '../components/post/PostList'
-import { Alert, Container, Navbar } from 'react-bootstrap'
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-icons/font/bootstrap-icons.css"
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
 import clientPromise from '../lib/mongodb'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { Stack } from '@mui/material'
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+  typography: {
+    fontFamily: [
+      'Roboto',
+      '"Noto Sans JP"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+})
 
 export const getServerSideProps = async () => {
   const allPosts: PostListData = [
@@ -54,34 +70,35 @@ export default function Page({ posts, isConnected }: InferGetServerSidePropsType
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar bg="dark" variant="dark">
-        <Container fluid>
-          <Navbar.Brand>Ideanet</Navbar.Brand>
-          <Navbar.Collapse id="basic-navbar-nav">
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box component="main" sx={{ p: 3 }}>
+          <Stack spacing={2}>
+            <Typography variant="h6">
+              Ideanet
+            </Typography>
 
-      <div className="container-sm py-3">
-        {isConnected ? (
-          <>
-            <p>IdeaNetは、社会活動の効率化のために、誰でも匿名で情報を共有できる、スレッド形式の電子掲示板です。</p>
+            {isConnected ? (
+              <>
+                <Typography variant="body1">
+                  IdeaNetは、社会活動の効率化のために、誰でも匿名で情報を共有できる、スレッド形式の電子掲示板です。
+                </Typography>
 
-            <p>まずは、あなたのやりたいこと（目標）を投稿してみましょう。</p>
+                <Typography variant="body1">
+                  まずは、あなたのやりたいこと（目標）を投稿してみましょう。
+                </Typography>
 
-            <div className="mb-2">
-              <Post />
-            </div>
-
-            <PostList posts={posts} />
-          </>
-        ) : (
-          <Alert variant="danger" className="mb-0">
-            Server is NOT connected to MongoDB. Check the <code>README.md</code>{' '}
-            for instructions.
-          </Alert>
-        )}
-      </div>
+                <PostList posts={posts} />
+              </>
+            ) : (
+              <Alert severity="error">
+                Server is NOT connected to MongoDB. Check the <code>README.md</code>{' '}
+                for instructions.
+              </Alert>
+            )}
+          </Stack>
+        </Box>
+      </ThemeProvider>
     </>
   )
 }
