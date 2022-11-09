@@ -1,13 +1,14 @@
-import type { InferGetServerSidePropsType } from 'next'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
-import { PostList, PostListData } from '../components/post/PostList'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import clientPromise from '../lib/mongodb'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { Stack } from '@mui/material'
+import { Post } from '../components/post/Post'
+import { PostList } from '../components/post/PostList'
+import clientPromise from '../lib/mongodb'
 
 const theme = createTheme({
   palette: {
@@ -23,28 +24,12 @@ const theme = createTheme({
   },
 })
 
-export const getServerSideProps = async () => {
-  const allPosts: PostListData = [
-    {
-      _id: "0",
-      text: "目標を達成する"
-    },
-    {
-      _id: "1",
-      text: "社会活動の効率化"
-    },
-    {
-      _id: "2",
-      text: "（手段）リソース（経営資源）を共有するWebアプリの開発"
-    }
-  ]
-
+export const getServerSideProps: GetServerSideProps = async () => {
   try {
     await clientPromise
 
     return {
       props: {
-        posts: allPosts,
         isConnected: true,
       },
     }
@@ -52,14 +37,13 @@ export const getServerSideProps = async () => {
     console.error(e)
     return {
       props: {
-        posts: allPosts,
         isConnected: false,
       },
     }
   }
 }
 
-export default function Page({ posts, isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Page({ isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
@@ -88,7 +72,9 @@ export default function Page({ posts, isConnected }: InferGetServerSidePropsType
                   まずは、あなたのやりたいこと（目標）を投稿してみましょう。
                 </Typography>
 
-                <PostList posts={posts} />
+                <Post />
+
+                <PostList />
               </>
             ) : (
               <Alert severity="error">
