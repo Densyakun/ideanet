@@ -6,7 +6,7 @@ import Pagination from '@mui/material/Pagination'
 import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { PostItem } from './Post'
+import { PostItem } from './PostItem'
 import { Data, itemsCount } from '../../pages/api/post'
 
 const fetcher: Fetcher<Data, string> = (...args) => fetch(...args).then((res) => res.json())

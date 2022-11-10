@@ -1,18 +1,12 @@
 import { useForm, Controller } from 'react-hook-form'
 import Button from '@mui/material/Button'
-import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
+import { PostItem } from './PostItem'
 
 type Inputs = {
   text: { label: string; value: string };
 }
-
-export const PostItem = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body1,
-  padding: theme.spacing(1),
-}))
 
 export const Post = () => {
   const { control, handleSubmit, formState: { errors } } = useForm<Inputs>()
