@@ -65,10 +65,20 @@ export const PostList = () => {
           </Skeleton>
         )}
 
-        {data && data.map((post) =>
-          <PostItem key={post._id}>
-            {post.text}
-          </PostItem>
+        {data && (
+          <>
+            {!data.length &&
+              <Alert severity="info">
+                Your search did not match any documents.
+              </Alert>
+            }
+
+            {data.map((post) =>
+              <PostItem key={post._id}>
+                {post.text}
+              </PostItem>
+            )}
+          </>
         )}
       </Stack>
     </>
