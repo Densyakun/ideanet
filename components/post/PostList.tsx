@@ -7,7 +7,7 @@ import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { PostItem } from './Post'
-import { Data } from '../../pages/api/post'
+import { Data, itemsCount } from '../../pages/api/post'
 
 const fetcher: Fetcher<Data, string> = (...args) => fetch(...args).then((res) => res.json())
 
@@ -16,7 +16,7 @@ const itemsPerPage = 10
 export const PostList = () => {
   const router = useRouter()
 
-  const [page, setPage] = useState(parseInt(router.query.page as string) || 1)
+  const [page, setPage] = useState(Math.max(1, Math.floor(parseInt(router.query.page as string) || 1)))
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
@@ -35,10 +35,21 @@ export const PostList = () => {
           みんなの投稿
         </Typography>
 
-        <Typography>Page: {page}</Typography>
+        <Typography>
+          {data && !!data.length && `${itemsPerPage * (page - 1) + 1}–${Math.min(itemsPerPage * page, itemsCount)} of `}
+          {`${itemsCount} results`}
+        </Typography>
 
-        <Pagination count={itemsPerPage} color="primary" variant="outlined" shape="rounded" hidePrevButton hideNextButton
-          page={page} onChange={handleChange} />
+        <Pagination
+          page={page}
+          count={Math.ceil(itemsCount / itemsPerPage)}
+          color="primary"
+          variant="outlined"
+          shape="rounded"
+          hidePrevButton
+          hideNextButton
+          onChange={handleChange}
+        />
 
         {error &&
           <Alert severity="error">
@@ -46,7 +57,7 @@ export const PostList = () => {
           </Alert>
         }
 
-        {!error && !data && [...Array(3)].map(() =>
+        {!error && !data && [...Array(itemsPerPage)].map(() =>
           <Skeleton variant="rounded" width="100%">
             <PostItem>
               Loading...
