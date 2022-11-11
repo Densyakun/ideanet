@@ -5,19 +5,35 @@ import TextField from '@mui/material/TextField'
 import { PostItem } from './PostItem'
 
 type Inputs = {
-  text: { label: string; value: string };
+  text: string
 }
 
 export const Post = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm<Inputs>()
-  const onSubmit = handleSubmit(data => console.log(data))
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+    reset
+  } = useForm<Inputs>()
+
+  const onSubmit = async (data: Inputs) => {
+    await fetch('/api/post', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (!res.ok) return
+
+        reset({ text: '' })
+      })
+  }
 
   return <Stack
     spacing={1}
     component="form"
     noValidate
     autoComplete="off"
-    onSubmit={onSubmit}
+    onSubmit={handleSubmit(onSubmit)}
   >
     <PostItem>
       <Controller
@@ -25,6 +41,7 @@ export const Post = () => {
         control={control}
         render={({ field }) => <TextField
           {...field}
+          disabled={isSubmitting}
           fullWidth
           error={!!errors.text}
           label="テキスト"
@@ -37,7 +54,11 @@ export const Post = () => {
         rules={{ required: true, maxLength: 255 }}
       />
     </PostItem>
-    <Button variant="contained" type="submit">
+    <Button
+      variant="contained"
+      type="submit"
+      disabled={isSubmitting}
+    >
       <i className='bi bi-plus'></i>
       投稿する
     </Button>

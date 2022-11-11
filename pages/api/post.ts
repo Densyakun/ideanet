@@ -7,17 +7,23 @@ export type Data = {
 
 export const itemsCount = 91
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const skip = Math.max(0, parseInt(req.query.skip as string) || 0)
-  const take = parseInt(req.query.take as string) || 10
+  if (req.method === 'POST') {
+    console.log(req.body)
 
-  res.status(200).json([...Array(Math.max(0, Math.min(take, itemsCount - skip)))].map((value, index) => {
-    return {
-      _id: (skip + index).toString(),
-      text: (skip + index + 1).toString()
-    }
-  }))
+    res.status(200).end()
+  } else {
+    const skip = Math.max(0, parseInt(req.query.skip as string) || 0)
+    const take = parseInt(req.query.take as string) || 10
+
+    res.status(200).json([...Array(Math.max(0, Math.min(take, itemsCount - skip)))].map((value, index) => {
+      return {
+        _id: (skip + index).toString(),
+        text: (skip + index + 1).toString()
+      }
+    }))
+  }
 }
