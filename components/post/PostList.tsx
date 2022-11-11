@@ -57,8 +57,8 @@ export const PostList = () => {
           </Alert>
         }
 
-        {!error && !data && [...Array(itemsPerPage)].map(() =>
-          <Skeleton variant="rounded" width="100%">
+        {!error && !data && [...Array(itemsPerPage)].map((value, index) =>
+          <Skeleton key={index} variant="rounded" width="100%">
             <PostItem>
               Loading...
             </PostItem>
