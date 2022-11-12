@@ -17,7 +17,7 @@ export const Post = () => {
   } = useForm<Inputs>()
 
   const onSubmit = async (data: Inputs) => {
-    await fetch('/api/post', {
+    await fetch('/api/posts', {
       method: 'POST',
       body: JSON.stringify(data),
     })

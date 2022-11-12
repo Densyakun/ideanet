@@ -7,7 +7,7 @@ import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { PostItem } from './PostItem'
-import { Data, itemsCount } from '../../pages/api/post'
+import { Data, itemsCount } from '../../pages/api/posts'
 
 const fetcher: Fetcher<Data, string> = (...args) => fetch(...args).then((res) => res.json())
 
@@ -26,7 +26,7 @@ export const PostList = () => {
     router.push(page === 1 ? {} : { query: { page: page } }, undefined, { scroll: false })
   }, [page])
 
-  const { data, error } = useSWR(`/api/post?skip=${(page - 1) * itemsPerPage},take=${itemsPerPage}`, fetcher)
+  const { data, error } = useSWR(`/api/posts?skip=${(page - 1) * itemsPerPage},take=${itemsPerPage}`, fetcher)
 
   return (
     <>
