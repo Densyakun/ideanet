@@ -11,20 +11,22 @@ import { Data, itemsCount } from '../../pages/api/posts'
 
 const fetcher: Fetcher<Data, string> = (...args) => fetch(...args).then((res) => res.json())
 
+const initPage = 1
 const itemsPerPage = 10
 
 export const PostList = () => {
   const router = useRouter()
 
-  const [page, setPage] = useState(Math.max(1, Math.floor(parseInt(router.query.page as string) || 1)))
+  const [page, setPage] = useState(0)
+
+  useEffect(() => {
+    setPage(Math.max(1, Math.floor(parseInt(router.query.page as string) || initPage)))
+  }, [router.query.page])
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
+    router.push(value === initPage ? {} : { query: { page: value } }, undefined, { scroll: false })
   }
-
-  useEffect(() => {
-    router.push(page === 1 ? {} : { query: { page: page } }, undefined, { scroll: false })
-  }, [page])
 
   const { data, error } = useSWR(`/api/posts?skip=${(page - 1) * itemsPerPage},take=${itemsPerPage}`, fetcher)
 
